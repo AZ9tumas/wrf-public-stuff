@@ -25,19 +25,21 @@ def get_value_by_lat_lon(file_path, latitude, longitude):
     except Exception as e:
         return f"Error: {e}"
 
-# Test coordinates for both GeoTIFFs
-test_coordinates = [
-    (39.7, -104.9),  # Within bounds for both files
-    (39.68, -104.94),  # Within bounds for both files
-    (40.0, -105.0),  # Out of bounds
-]
-
+# Paths to GeoTIFF files
 file_1_path = "MYD11A1.061_QC_Day_doy2024228_aid0001.tif"
 file_2_path = "MYD11A1.061_LST_Day_1km_doy2024228_aid0001.tif"
 
-# Run tests for both files
-results_file_1 = {f"Lat: {lat}, Lon: {lon}": get_value_by_lat_lon(file_1_path, lat, lon) for lat, lon in test_coordinates}
-results_file_2 = {f"Lat: {lat}, Lon: {lon}": get_value_by_lat_lon(file_2_path, lat, lon) for lat, lon in test_coordinates}
+# Prompt the user for latitude and longitude
+latitude = float(input("Enter latitude: "))
+longitude = float(input("Enter longitude: "))
 
-print("Results 1: ", results_file_1)
-print("Results 2: ", results_file_2)
+# Query both files
+result_file_1 = get_value_by_lat_lon(file_1_path, latitude, longitude)
+result_file_2 = get_value_by_lat_lon(file_2_path, latitude, longitude)
+
+# Print the results
+print("\nResults for File 1 (QC Day):")
+print(result_file_1)
+
+print("\nResults for File 2 (LST Day):")
+print(result_file_2)
